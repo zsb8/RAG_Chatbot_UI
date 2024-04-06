@@ -20,8 +20,13 @@ export async function signIn(username: string, password: string) {
   // if (result.error) {
   //   throw new Error(result.message);
   // }
+  let result;
+  if (username === "TestChotbot" && password === "Waterloo") {
+    result = { AuthenticationResult: { AccessToken: "test", IdToken: "test" }, user: { tenant: { tenantId: "1234" }, role: "user", username: "zsb" } };
+  } else {
+    result = { AuthenticationResult: { AccessToken: "error", IdToken: "error" }, user: { tenant: { tenantId: "1234" }, role: "user", username: "zsb" } };
+  }
 
-  const result = { AuthenticationResult: { AccessToken: "test", IdToken: "test" }, user: { tenant: { tenantId: "1234" }, role: "user", username: "zsb" } };
   return result;
 }
 
