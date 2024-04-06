@@ -22,7 +22,7 @@ export async function signIn(username: string, password: string) {
   // }
   let result;
   //  注意，我这里新设置了账号密码了，没有账号密码则无法访问，因为网站已经部署在AWS Amplify上了，暴露公网上了。
-  if (username === "TestChotbot" && password === "Waterloo") {
+  if (username === "TestChatbot" && password === "Waterloo") {
     result = { AuthenticationResult: { AccessToken: "test", IdToken: "test" }, user: { tenant: { tenantId: "1234" }, role: "user", username: "zsb" } };
   } else {
     result = { AuthenticationResult: { AccessToken: "error", IdToken: "error" }, user: { tenant: { tenantId: "1234" }, role: "user", username: "zsb" } };

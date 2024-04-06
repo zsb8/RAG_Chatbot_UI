@@ -5,7 +5,7 @@ import styles from "../styles/home.module.css";
 import { Divider, Menu, Button, Input, Space, List, Avatar, Layout, Switch, Flex } from "antd";
 import { CommentOutlined, LogoutOutlined, UserOutlined, AndroidOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import logo from "@/public/waterloo.svg";
+import ChatbotLogo from "@/public/ChatbotLogo.png";
 import { conversation } from "@/util/chatpvt-util";
 import { v4 as uuidv4 } from "uuid";
 import { useMediaQuery } from "react-responsive";
@@ -189,7 +189,7 @@ export default function HomeDisplay() {
                   <div className={styles.header}>
                     <div className={styles._left}>
                       <div>
-                        <Image src={logo} className={styles.logo} alt="" priority />
+                        <Image src={ChatbotLogo} className={styles.logo} alt="" priority />
                       </div>
                     </div>
                     <div className={styles._right}>

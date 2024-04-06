@@ -33,10 +33,10 @@
   .logo {
     flex-grow: 1;
     height: auto;
-    width: 8rem;
+    width: 100%;
     object-fit: cover;
     transition: opacity 1s;
-    padding-right: 1rem;
+    /* padding-right: 1rem; */
     background: grey;
   }
   ._left {
