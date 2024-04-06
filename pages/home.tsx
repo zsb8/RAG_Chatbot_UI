@@ -142,7 +142,7 @@ export default function HomeDisplay() {
             <div>
               {item?.documentation.length > 0 ? (
                 <>
-                  <Divider style={{ fontSize: "0.5rem", margin: "0 0", color: "#adadad" }} dashed orientation="left">
+                  <Divider style={{ fontSize: "0.7rem", margin: "0 0", color: "#adadad" }} dashed orientation="left">
                     Documentations
                   </Divider>
 
@@ -239,7 +239,7 @@ export default function HomeDisplay() {
                           transition: "background-color 0.3s, color 0.3s",
                         }}
                       >
-                        <div style={{ fontWeight: "500", fontSize: "1rem", color: "#2E3336" }}>Chat History Mode</div>
+                        <div style={{ fontWeight: "500", fontSize: "1rem", color: "#2E3336" }}>Remember History</div>
                       </div>
                     </div>
                   </Flex>
