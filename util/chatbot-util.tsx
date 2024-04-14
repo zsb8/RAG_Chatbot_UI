@@ -91,15 +91,15 @@ export async function bedRockStream(prompt: string) {
 }
 
 export async function conversation(question: string, chatHistory: Array<QuestionResType>) {
-  const bedrock_sync_url = new URL(`${process.env.NEXT_PUBLIC_BASE_URL_CHATPVT}/${process.env.NEXT_PUBLIC_STAGE}/chatpvt/conversation`);
+  const bedrock_sync_url = new URL(`${process.env.NEXT_PUBLIC_BASE_URL_CHATBOT}/${process.env.NEXT_PUBLIC_STAGE}/chatbot/conversation`);
   const bodyParams =
     chatHistory.length === 0
       ? {
-          CollectionName: "chatpvtdocs",
+          CollectionName: "s3chatbotdocs",
           Question: question,
         }
       : {
-          CollectionName: "chatpvtdocs",
+          CollectionName: "s3chatbotdocs",
           Question: question,
           ChatHistory: chatHistory,
         };

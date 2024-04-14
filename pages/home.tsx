@@ -6,7 +6,7 @@ import { Divider, Menu, Button, Input, Space, List, Avatar, Layout, Switch, Flex
 import { CommentOutlined, LogoutOutlined, UserOutlined, AndroidOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import ChatbotLogo from "@/public/ChatbotLogo.png";
-import { conversation } from "@/util/chatpvt-util";
+import { conversation } from "@/util/chatbot-util";
 import { v4 as uuidv4 } from "uuid";
 import { useMediaQuery } from "react-responsive";
 import { ChatMessageType, QuestionResType } from "@/components/variables-types";
