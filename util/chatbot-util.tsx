@@ -90,6 +90,34 @@ export async function bedRockStream(prompt: string) {
   return result.trim();
 }
 
+interface DocumentationItem {
+  file_path: string;
+  page_number: number;
+}
+// Define the type for the grouped result
+interface GroupedDocumentationItem {
+  file_path: string;
+  page_numbers: string;
+}
+const groupAndFormatDocuments = (docs: DocumentationItem[]): GroupedDocumentationItem[] => {
+  const grouped: { [key: string]: number[] } = {};
+  // Group page numbers by file_path
+  docs.forEach((doc) => {
+    if (!grouped[doc.file_path]) {
+      grouped[doc.file_path] = [];
+    }
+    grouped[doc.file_path].push(doc.page_number);
+  });
+  // Convert grouped data into desired format
+  return Object.keys(grouped).map((file_path) => ({
+    file_path,
+    page_numbers: grouped[file_path].sort((a, b) => a - b).join(", "),
+  }));
+};
+const getFilename = (path: string): string => {
+  // Split the path by '/' and return the last segment
+  return path.split("/").pop()!;
+};
 export async function conversation(question: string, chatHistory: Array<QuestionResType>) {
   const bedrock_sync_url = new URL(`${process.env.NEXT_PUBLIC_BASE_URL_CHATBOT}/${process.env.NEXT_PUBLIC_STAGE}/chatbot/conversation`);
   const bodyParams =
@@ -114,5 +142,10 @@ export async function conversation(question: string, chatHistory: Array<Question
   if (res.error) {
     throw new Error(res.message);
   }
-  return res;
+  const Documentation = res.Documentation;
+  const newDocumentation = groupAndFormatDocuments(Documentation);
+  //newDocumentation的格式  [{"file_path": "/tmp/test1.pdf","page_numbers": "1, 2, 11"},{"file_path": "/tmp/test2.pdf","page_numbers": "100"}]
+  const formatDocuments = newDocumentation.map((doc) => `${getFilename(doc.file_path)}  ;  Pages:${doc.page_numbers}`);
+  const result = { Response: res.Response, Documentation: formatDocuments };
+  return result;
 }

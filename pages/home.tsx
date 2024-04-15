@@ -63,8 +63,8 @@ export default function HomeDisplay() {
               if (result?.Response) {
                 if (result?.Documentation.length > 0) {
                   const path = require("path");
-                  const cleanedFilenames = result.Documentation.map((filePath: string) => path.basename(filePath)).map((item: string, index: number) => `${index + 1}. ${item}`);
-                  return { ...item, robot: result?.Response.replace(/\n\s*\n/g, "\n"), documentation: cleanedFilenames };
+                  // const cleanedFilenames = result.Documentation.map((filePath: string) => path.basename(filePath)).map((item: string, index: number) => `${index + 1}. ${item}`);
+                  return { ...item, robot: result?.Response.replace(/\n\s*\n/g, "\n"), documentation: result.Documentation };
                 } else {
                   return { ...item, robot: result?.Response.replace(/\n\s*\n/g, "\n"), documentation: [] };
                 }
