@@ -136,16 +136,21 @@ export async function conversation(question: string, chatHistory: Array<Question
   const requestParams = preparePostRequest(JSON.stringify(bodyParams));
   const response = await fetch(bedrock_sync_url, requestParams);
   const res = await response.json();
-  if (!response.ok) {
-    throw new Error(res.message);
+  if (!response.ok || res?.errorMessage) {
+    console.log("!!!!====res.errorMessage:", res.errorMessage);
+    const result = { Response: "Unfortunately", Documentation: [] };
+    return result;
+  } else {
+    if (res?.message === "Endpoint request timed out") {
+      const result = { Response: "Unfortunately", Documentation: [] };
+      return result;
+    } else {
+      const Documentation = res.Documentation;
+      const newDocumentation = groupAndFormatDocuments(Documentation);
+      //newDocumentation的格式  [{"file_path": "/tmp/test1.pdf","page_numbers": "1, 2, 11"},{"file_path": "/tmp/test2.pdf","page_numbers": "100"}]
+      const formatDocuments = newDocumentation.map((doc) => `${getFilename(doc.file_path)}  ;  Pages:${doc.page_numbers}`);
+      const result = { Response: res.Response, Documentation: formatDocuments };
+      return result;
+    }
   }
-  if (res.error) {
-    throw new Error(res.message);
-  }
-  const Documentation = res.Documentation;
-  const newDocumentation = groupAndFormatDocuments(Documentation);
-  //newDocumentation的格式  [{"file_path": "/tmp/test1.pdf","page_numbers": "1, 2, 11"},{"file_path": "/tmp/test2.pdf","page_numbers": "100"}]
-  const formatDocuments = newDocumentation.map((doc) => `${getFilename(doc.file_path)}  ;  Pages:${doc.page_numbers}`);
-  const result = { Response: res.Response, Documentation: formatDocuments };
-  return result;
 }
