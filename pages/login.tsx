@@ -32,8 +32,6 @@ export default function Login() {
         const currentdate = new Date();
         localStorage.setItem("username", values.username);
         localStorage.setItem("id_token", result.AuthenticationResult.IdToken);
-        console.log("!!!!=====currentdate:", currentdate);
-        console.log("!!!!=====currentdate.toString():", currentdate.toString());
         if (result.AuthenticationResult.IdToken === "error") {
           localStorage.setItem("session_time", "Sat Apr 06 2001 09:33:29 GMT-0400 (Eastern Daylight Time)");
         } else {

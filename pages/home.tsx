@@ -60,17 +60,20 @@ export default function HomeDisplay() {
         setChat((prevChat) => {
           const updatedChat = prevChat.map((item) => {
             if (item.id === id) {
+              let myrobot = "Sorry, I can't answer your question.";
+              let mydoc: any = [];
               if (result?.Response) {
-                if (result?.Documentation.length > 0) {
-                  const path = require("path");
-                  // const cleanedFilenames = result.Documentation.map((filePath: string) => path.basename(filePath)).map((item: string, index: number) => `${index + 1}. ${item}`);
-                  return { ...item, robot: result?.Response.replace(/\n\s*\n/g, "\n"), documentation: result.Documentation };
-                } else {
-                  return { ...item, robot: result?.Response.replace(/\n\s*\n/g, "\n"), documentation: [] };
+                if (result.Response.indexOf("Unfortunately") === -1) {
+                  myrobot = result?.Response.replace(/\n\s*\n/g, "\n");
+                  if (result.Documentation[0].indexOf("Pages:0") === -1) {
+                    mydoc = result.Documentation;
+                  } else {
+                    const doc = result.Documentation[0].replace("Pages:0", "").trim();
+                    mydoc = [doc];
+                  }
                 }
-              } else {
-                return { ...item, robot: "Sorry, I can't answer your question.", documentation: [] };
               }
+              return { ...item, robot: myrobot, documentation: mydoc };
             }
             return item;
           });
